@@ -1,0 +1,11 @@
+[general]
+margin = 0
+hr_length = 30
+indent_size = 4
+image_width = 30
+
+[characters]
+bullets = "•"
+text_blocks = "#"
+hr = "-"
+
