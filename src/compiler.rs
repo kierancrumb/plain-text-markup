@@ -6,6 +6,7 @@ struct Token {
   body: Vec<char>
 }
 
+#[derive(PartialEq)]
 #[derive(Debug)]
 enum Element {
   H,
@@ -25,28 +26,45 @@ pub fn compile(file_path: &String) -> String {
      |_..._..._______===|= __|__)
 . .. “ (@)'(@)””””*|(@)(@)***(@)
   ");
+
   let file_content: String = fs::read_to_string(file_path).expect("idk man, something didn't work");
   let chunks: Vec<Token> = tokenize(file_content);
-
+  dbg!(chunks);
   let content = String::from("dfghj");
+
   return content;
 }  
 
 fn tokenize(content: String) -> Vec<Token> {// choppes it into chunks
-  let lines: Vec<Token> = Vec::new()
-  for (i, c) in content.chars().enumerate() {
-    if i == 0 {
-      lines.push(Token {
-        element: match_elmnt(c),
-        body: Vec::new()
-      })
-    } else {
+  let mut lines: Vec<Token> = Vec::new();
+  let mut new_line: bool = true;
+  let mut i = 0;
 
+  for c in content.chars() {
+    if new_line {
+
+      let elmnt = match_elmnt(c);
+
+      let new_token = Token {
+        element: elmnt,
+        body: Vec::new()
+      };
+
+      lines.push(new_token);
+
+      if  lines[i].element == Element::P {lines[i].body.push(c)}
+
+      i += 1;
+      new_line = false;
+    } else if c == '\n' {
+        new_line = true;
+        lines[i - 1].body.push(c);
+    } else {
+        lines[i - 1].body.push(c);
     }
   }
 
-  dbg!(lines);
-  return vec![Token {element: Element::P, body: String::from("hello, world")}]
+  return lines
 }
 
 fn match_elmnt(tag: char) -> Element {
@@ -60,12 +78,5 @@ fn match_elmnt(tag: char) -> Element {
     '`' => Element::Pre,
     '!' => Element::Img,
     _ => Element::P
-  }
-}
-
-fn line_end(c: char) {
-  match c {
-    '\n' => {},
-    _
   }
 }
