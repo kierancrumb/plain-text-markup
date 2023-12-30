@@ -29,10 +29,9 @@ pub fn compile(file_path: &String) -> String {
 
   let file_content: String = fs::read_to_string(file_path).expect("idk man, something didn't work");
   let chunks: Vec<Token> = tokenize(file_content);
-  dbg!(chunks);
-  let content = String::from("dfghj");
+  let compiled = asemble(chunks); 
 
-  return content;
+  return compiled
 }  
 
 fn tokenize(content: String) -> Vec<Token> {// choppes it into chunks
@@ -52,16 +51,21 @@ fn tokenize(content: String) -> Vec<Token> {// choppes it into chunks
 
       lines.push(new_token);
 
-      if  lines[i].element == Element::P {lines[i].body.push(c)}
+      if lines[i].element == Element::P {lines[i].body.push(c)}
 
       i += 1;
       new_line = false;
+
     } else if c == '\n' {
-        new_line = true;
-        lines[i - 1].body.push(c);
+
+      new_line = true;
+      lines[i - 1].body.push(c);
+
     } else {
-        lines[i - 1].body.push(c);
+
+      lines[i - 1].body.push(c);
     }
+    
   }
 
   return lines
@@ -78,5 +82,10 @@ fn match_elmnt(tag: char) -> Element {
     '`' => Element::Pre,
     '!' => Element::Img,
     _ => Element::P
-  }
+  }  
+}
+
+fn asemble(tokens: Vec<Token>) -> String {
+  dbg!(tokens);
+  return String::from("hello, world")
 }
