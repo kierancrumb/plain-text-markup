@@ -15,8 +15,8 @@ hello, world.
 look at this
 = horizontal rule
 
->that was a horizontal rule
->this is a block quote
+> that was a horizontal rule
+> this is a block quote
 
 % block
 
@@ -27,5 +27,7 @@ look at this
 `
 this is preformatted text
 
-# this isn't a header
+# this isn't a header because it is preformatted
 `
+
+# foo

@@ -1,6 +1,6 @@
 # Plain Text Markup
 
-A small **mostly** useless markup language that only uses plain text. Ptm uses ASCII art to make headers and all of its other features.
+A small **mostly** useless markup language that only uses plain text. Ptm uses ASCII art to make headers, images and all of its other features.
 
 ## Why?
 Because it's cool😎 and i was bored.
