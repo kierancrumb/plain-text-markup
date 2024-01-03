@@ -111,12 +111,12 @@ fn asemble(tokens: Vec<Token>) -> String {
     match tok.element {
       Element::P => output.push(String::from_iter(&tok.body)),
       Element::H => {
-        output.push(String::from("header"));
+        output.push(String::from("header\n"));
       },
       Element::Bq => {
         output.push(vec![
 
-          String::from("\t|"),
+          String::from("    |"),
           String::from_iter(&tok.body)
 
         ].join(""));
@@ -124,25 +124,23 @@ fn asemble(tokens: Vec<Token>) -> String {
       Element::Ul => {
         output.push(vec![
 
-          String::from("\t•"),
+          String::from("    •"),
           String::from_iter(&tok.body)
 
         ].join(""));
       },
       Element::Hr => output.push(String::from("-----------------------------------\n")),
       Element::Pre => continue,
-      Element::Img => output.push(String::from("image")),
+      Element::Img => output.push(String::from("image\n")),
       Element::Block => {
-        output.push(format!("{}\n", char_pad('#', tok.body.len() + 1)));
-        output.push(format!("#{} #\n", &String::from_iter(&tok.body[0..tok.body.len()-2])));
-        output.push(format!("{}\n", char_pad('#', tok.body.len() + 1)));
+        output.push(format!("  {}\n", char_pad('#', tok.body.len() + 1)));
+        output.push(format!("  #{} #\n", &String::from_iter(&tok.body[0..tok.body.len()-2])));
+        output.push(format!("  {}\n", char_pad('#', tok.body.len() + 1)));
       }
     }
   }
 
-  dbg!(output);
-
-  return String::from("foo")
+  return output.join("")
 }
 
 fn char_pad(chr: char, len: usize) -> String {
