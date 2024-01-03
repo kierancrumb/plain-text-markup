@@ -1,4 +1,5 @@
 use std::fs;
+use colored::*;
 
 #[derive(Debug)]
 struct Token {
@@ -26,7 +27,7 @@ pub fn compile(file_path: &String) -> String {
 . .. " (@)'(@)""{}""*|(@)(@)***(@)
   "#,
     char_pad('^', file_path.len()),
-    file_path, 
+    file_path.yellow(), 
     char_pad('_',file_path.len()),
     char_pad('"',file_path.len())
   );
@@ -52,6 +53,7 @@ fn tokenize(content: String) -> Vec<Token> {// choppes it into chunks
         body: Vec::new()
       };
 
+      // preformatted text
       if in_pre {
         if c == '`' {
           new_token.element = Element::Pre;
@@ -127,9 +129,14 @@ fn asemble(tokens: Vec<Token>) -> String {
 
         ].join(""));
       },
-      Element::Hr => output.push(String::from("-----------------------------------")),
+      Element::Hr => output.push(String::from("-----------------------------------\n")),
       Element::Pre => continue,
-      _ => output.push(String::from("todo")),
+      Element::Img => output.push(String::from("image")),
+      Element::Block => {
+        output.push(format!("{}\n", char_pad('#', tok.body.len() + 1)));
+        output.push(format!("#{} #\n", &String::from_iter(&tok.body[0..tok.body.len()-2])));
+        output.push(format!("{}\n", char_pad('#', tok.body.len() + 1)));
+      }
     }
   }
 

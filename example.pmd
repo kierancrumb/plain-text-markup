@@ -24,10 +24,14 @@ look at this
 
 % more blocks
 
-`
+` foo
 this is preformatted text
 
 # this isn't a header because it is preformatted
 `
 
-# foo
+# bar
+
+!example.jpg:35: this alt text is usless
+
+that was a cool image

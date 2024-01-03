@@ -2,7 +2,6 @@
 margin = 0
 hr_length = 35
 indent_size = 4
-image_width = 35
 
 [characters]
 bullets = "•"
